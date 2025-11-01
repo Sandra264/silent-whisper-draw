@@ -1,0 +1,21 @@
+{
+  "name": "heart-lock",
+  "version": "1.0.0",
+  "description": "FHE-based secure smart contract",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.ts"
+  },
+  "keywords": ["fhe", "blockchain", "privacy"],
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@fhevm/solidity": "^0.2.0"
+  }
+}
+
