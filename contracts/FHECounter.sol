@@ -118,3 +118,5 @@ contract FHECounter is SepoliaConfig {
     }
 }
 
+
+    // Enhanced with decrement functionality
