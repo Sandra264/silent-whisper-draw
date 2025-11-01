@@ -19,5 +19,6 @@ const config: HardhatUserConfig = {
   }
 };
 
+// Configured for fhEVM
 export default config;
 
