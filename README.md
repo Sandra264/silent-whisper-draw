@@ -6,3 +6,10 @@ A privacy-preserving prediction and polling platform powered by FHE.
 
 PollCipher enables completely private voting using Zama's fhEVM.
 
+
+## Installation
+
+```bash
+npm install
+```
+
