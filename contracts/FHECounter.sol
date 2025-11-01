@@ -14,7 +14,7 @@ import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 contract FHECounter is SepoliaConfig {
     string public constant VERSION = "1.0.0";
     euint32 private _count;
-    address private _owner;
+    address private _owner; // Owner has admin privileges
     bool private _paused;
     
     event CounterIncremented(address indexed user);
