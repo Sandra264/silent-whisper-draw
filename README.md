@@ -13,3 +13,8 @@ PollCipher enables completely private voting using Zama's fhEVM.
 npm install
 ```
 
+
+## How It Works
+
+Votes are encrypted client-side using FHE SDK.
+
