@@ -15,7 +15,7 @@ contract FHECounter is SepoliaConfig {
     string public constant VERSION = "1.0.0";
     euint32 private _count;
     address private _owner; // Owner has admin privileges
-    bool private _paused;
+    bool private _paused; // Emergency pause mechanism
     
     event CounterIncremented(address indexed user);
     event CounterDecremented(address indexed user);
