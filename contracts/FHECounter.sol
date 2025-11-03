@@ -23,7 +23,7 @@ contract FHECounter is SepoliaConfig {
     event Paused(address indexed user);
     event Unpaused(address indexed user);
     
-    error NotAuthorized();
+    error NotAuthorized(); // Gas optimized custom error
     error ContractPaused();
     error InvalidParameter();
     
