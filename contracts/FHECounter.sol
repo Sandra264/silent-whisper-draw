@@ -98,6 +98,7 @@ contract FHECounter is SepoliaConfig {
     /// @param inputEuint32 The encrypted input value
     /// @param inputProof The proof for the encrypted input
     /// @param times Number of times to increment (max 10)
+    // Optimized batch operation
     function batchIncrement(
         externalEuint32 calldata inputEuint32, 
         bytes calldata inputProof, 
