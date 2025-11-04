@@ -55,7 +55,7 @@ contract FHECounter is SepoliaConfig {
     function increment(externalEuint32 calldata inputEuint32, bytes calldata inputProof) external whenNotPaused {
         euint32 value = FHE.fromExternal(inputEuint32, inputProof);
         _count = FHE.add(_count, value);
-        FHE.allowThis(_count);
+        FHE.allowThis(_count); // Grant contract access
         FHE.allow(_count, msg.sender);
         emit CounterIncremented(msg.sender);
     }
@@ -64,7 +64,7 @@ contract FHECounter is SepoliaConfig {
     function decrement(externalEuint32 calldata inputEuint32, bytes calldata inputProof) external whenNotPaused {
         euint32 value = FHE.fromExternal(inputEuint32, inputProof);
         _count = FHE.sub(_count, value);
-        FHE.allowThis(_count);
+        FHE.allowThis(_count); // Grant contract access
         FHE.allow(_count, msg.sender);
         emit CounterDecremented(msg.sender);
     }
@@ -72,7 +72,7 @@ contract FHECounter is SepoliaConfig {
     /// @notice Reset counter to zero (owner only)
     function reset() external onlyOwner {
         _count = FHE.asEuint32(0);
-        FHE.allowThis(_count);
+        FHE.allowThis(_count); // Grant contract access
         FHE.allow(_count, msg.sender);
         emit CounterReset(msg.sender);
     }
@@ -113,7 +113,7 @@ contract FHECounter is SepoliaConfig {
         }
         _count = result;
         
-        FHE.allowThis(_count);
+        FHE.allowThis(_count); // Grant contract access
         FHE.allow(_count, msg.sender);
         emit CounterIncremented(msg.sender);
     }
