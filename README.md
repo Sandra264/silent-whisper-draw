@@ -18,3 +18,9 @@ npm install
 
 Votes are encrypted client-side using FHE SDK.
 
+
+## Contract Functions
+
+- increment() - Add encrypted value
+- decrement() - Subtract encrypted value
+
