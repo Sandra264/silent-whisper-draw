@@ -17,6 +17,7 @@ contract FHECounter is SepoliaConfig {
     address private _owner; // Owner has admin privileges
     bool private _paused; // Emergency pause mechanism
     
+    // Event for tracking increments
     event CounterIncremented(address indexed user);
     event CounterDecremented(address indexed user);
     event CounterReset(address indexed user);
