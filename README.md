@@ -24,3 +24,11 @@ Votes are encrypted client-side using FHE SDK.
 - increment() - Add encrypted value
 - decrement() - Subtract encrypted value
 
+
+## Architecture
+
+PollCipher uses a three-tier architecture:
+- Frontend (Next.js)
+- Smart Contracts (Solidity)
+- FHE SDK (Zama)
+
