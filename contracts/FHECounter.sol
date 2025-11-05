@@ -12,7 +12,7 @@ import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 /// @dev Implements pausable pattern for emergency stops
 /// @custom:security-contact security@heartlock.example
 contract FHECounter is SepoliaConfig {
-    string public constant VERSION = "1.0.0";
+    string public constant VERSION = "1.0.0"; // Contract version for tracking
     euint32 private _count;
     address private _owner; // Owner has admin privileges
     bool private _paused; // Emergency pause mechanism
