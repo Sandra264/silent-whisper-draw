@@ -7,6 +7,8 @@ import {FHE, euint32, externalEuint32} from "@fhevm/solidity/lib/FHE.sol";
 import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 
 /// @title FHE Counter Contract
+/// @notice Secure counter using fully homomorphic encryption
+/// @dev Implements pausable pattern for emergency stops
 /// @author Heart Lock Team
 /// @notice Secure counter using fully homomorphic encryption
 /// @dev Implements pausable pattern for emergency stops
