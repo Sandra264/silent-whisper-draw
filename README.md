@@ -37,3 +37,11 @@ PollCipher uses a three-tier architecture:
 - Smart Contracts (Solidity)
 - FHE SDK (Zama)
 
+
+## Security Features
+
+- End-to-end encryption
+- Zero-knowledge proofs
+- Access control
+- Pausable pattern
+
