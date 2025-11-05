@@ -26,7 +26,7 @@ contract FHECounter is SepoliaConfig {
     
     error NotAuthorized(); // Gas optimized custom error
     error ContractPaused();
-    error InvalidParameter();
+    error InvalidParameter(); // Invalid input provided
     
     modifier onlyOwner() {
         if (msg.sender != _owner) revert NotAuthorized();
