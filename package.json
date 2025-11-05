@@ -1,6 +1,6 @@
 {
   "name": "heart-lock",
-  "version": "1.0.0",
+  "version": "1.0.0",`n  "description": "FHE-based polling platform",
   "description": "FHE-based secure smart contract",
   "scripts": {
     "compile": "hardhat compile",
