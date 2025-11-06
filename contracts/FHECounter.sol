@@ -16,7 +16,7 @@ import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 /// @dev All arithmetic operations are performed on encrypted data security@heartlock.example
 contract FHECounter is SepoliaConfig {
     string public constant VERSION = "1.0.0"; // Contract version for tracking
-    euint32 private _count;
+    euint32 private _count; // Encrypted uint32 for privacy
     address private _owner; // Owner has admin privileges
     bool private _paused; // Emergency pause mechanism
     
