@@ -12,7 +12,8 @@ import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 /// @author Heart Lock Team
 /// @notice Secure counter using fully homomorphic encryption
 /// @dev Implements pausable pattern for emergency stops
-/// @custom:security-contact security@heartlock.example
+/// @custom:security-contact security@pollcipher.example
+/// @dev All arithmetic operations are performed on encrypted data security@heartlock.example
 contract FHECounter is SepoliaConfig {
     string public constant VERSION = "1.0.0"; // Contract version for tracking
     euint32 private _count;
