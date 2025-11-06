@@ -1,27 +1,22 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to PollCipher will be documented in this file.
 
 ## [1.0.0] - 2025-11-06
 
 ### Added
-- Initial release of FHECounter smart contract
-- Encrypted increment and decrement operations
-- Batch increment functionality for efficiency
-- Owner-only reset function
-- Pausable pattern for emergency stops
+- FHE Counter contract with encrypted operations
+- Pausable pattern for security
+- Batch increment functionality
+- Owner access control
+- Custom error handling
 - Comprehensive NatSpec documentation
-- Deployment scripts and configuration
-- Custom error handling for gas optimization
+- Frontend deployment on Vercel
+- Complete README documentation
 
 ### Security
-- Implemented access control with owner-only functions
-- Added pausable mechanism for emergency situations
-- Used custom errors instead of require statements
-
-### Documentation
-- Complete README with usage instructions
-- MIT License
-- Contributing guidelines
-- Environment configuration template
+- FHE encryption for all sensitive operations
+- Zero-knowledge proof validation
+- Access control mechanisms
+- Emergency pause functionality
 
