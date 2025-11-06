@@ -125,3 +125,16 @@ MIT License - see LICENSE file for details.
 ---
 
 **â­?Star this repo if you find it useful!**
+
+## ðŸ“– Usage Examples
+
+### Deploy Contract
+```bash
+npx hardhat deploy --network sepolia
+```  
+
+### Interact with Contract
+```bash
+npx hardhat fhe:increment --value 5
+```
+
