@@ -107,7 +107,7 @@ contract FHECounter is SepoliaConfig {
         bytes calldata inputProof, 
         uint8 times
     ) external whenNotPaused {
-        if (times == 0 || times > 10) revert InvalidParameter();
+        if (times == 0 || times > 10) // Validate input range revert InvalidParameter();
         euint32 value = FHE.fromExternal(inputEuint32, inputProof);
         
         euint32 result = _count;
