@@ -77,11 +77,11 @@ npm run dev
 ### User Functions
 - increment(value, proof) - Add encrypted value
 - decrement(value, proof) - Subtract encrypted value
-- atchIncrement(value, proof, times) - Batch operation
+- batchIncrement(value, proof, times) - Batch operation
 - getCount() - Get encrypted counter
 
 ### Admin Functions  
-- eset() - Reset counter (owner only)
+- reset() - Reset counter (owner only)
 - pause() - Pause operations
 - unpause() - Resume operations
 
