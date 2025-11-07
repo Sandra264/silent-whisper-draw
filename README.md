@@ -1,4 +1,4 @@
-# PollCipher 🗳️�?
+# PollCipher 🗳️🔐
 
 **A privacy-preserving prediction and polling platform powered by Fully Homomorphic Encryption (FHE)**
 
@@ -12,14 +12,14 @@
 
 **PollCipher** enables **completely private voting and prediction markets** using Zama's fhEVM. Votes are encrypted client-side and remain encrypted on-chain throughout the entire voting process.
 
-## �?Key Features
+## ✨ Key Features
 
 - 🔒 **End-to-end encryption** - Votes encrypted in browser
-- 🗳�?**Homomorphic tallying** - Results computed on encrypted data  
-- �?**Zero-knowledge proofs** - Validate without revealing
+- 🗳️ **Homomorphic tallying** - Results computed on encrypted data  
+- ✅ **Zero-knowledge proofs** - Validate without revealing
 - 🎨 **Modern UI** - Next.js 15 with RainbowKit
 
-## 🏗�?Architecture
+## 🏗️ Architecture
 
 PollCipher uses Fully Homomorphic Encryption to enable:
 - Private voting without revealing individual choices
@@ -77,7 +77,7 @@ npm run dev
 ### User Functions
 - increment(value, proof) - Add encrypted value
 - decrement(value, proof) - Subtract encrypted value
-- batchIncrement(value, proof, times) - Batch operation
+- batchIncrement(value, proof, times) - Batch operation
 - getCount() - Get encrypted counter
 
 ### Admin Functions  
@@ -85,7 +85,7 @@ npm run dev
 - pause() - Pause operations
 - unpause() - Resume operations
 
-## 🛡�?Security Features
+## 🛡️ Security Features
 
 - **FHE Encryption** - Lattice-based cryptography
 - **Access Control** - Owner-only admin functions
@@ -124,7 +124,7 @@ MIT License - see LICENSE file for details.
 
 ---
 
-**�?Star this repo if you find it useful!**
+**⭐ Star this repo if you find it useful!**
 
 ## 📖 Usage Examples
 
@@ -137,4 +137,3 @@ npx hardhat deploy --network sepolia
 ```bash
 npx hardhat fhe:increment --value 5
 ```
-
