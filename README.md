@@ -2,10 +2,10 @@
 
 **A privacy-preserving prediction and polling platform powered by Fully Homomorphic Encryption (FHE)**
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://pro1-git-main-waws-projects-2bccbfbd.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://pro1-orcin.vercel.app/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-🌐 **Live Application**: [https://pro1-git-main-waws-projects-2bccbfbd.vercel.app/](https://pro1-git-main-waws-projects-2bccbfbd.vercel.app/)
+🌐 **Live Application**: [https://pro1-orcin.vercel.app/](https://pro1-orcin.vercel.app/)
 
 📹 **Demo Video**: [Watch on GitHub](https://github.com/Sandra264/silent-whisper-draw/blob/main/pro1.mp4)
 
@@ -489,7 +489,7 @@ For questions, suggestions, or collaborations:
 
 - **GitHub Issues**: [Report a bug or request a feature](https://github.com/Sandra264/silent-whisper-draw/issues)
 - **Project Link**: [https://github.com/Sandra264/silent-whisper-draw](https://github.com/Sandra264/silent-whisper-draw)
-- **Live Demo**: [https://pro1-git-main-waws-projects-2bccbfbd.vercel.app/](https://pro1-git-main-waws-projects-2bccbfbd.vercel.app/)
+- **Live Demo**: [https://pro1-orcin.vercel.app/](https://pro1-orcin.vercel.app/)
 
 ---
 
