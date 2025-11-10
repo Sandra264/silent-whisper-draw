@@ -294,6 +294,27 @@ contract EncryptedPredictionPoll is SepoliaConfig {
         return true;
     }
 
+    /// @notice Get voting statistics summary.
+    /// @return totalVotes Total number of votes cast.
+    /// @return uniqueVoters Number of unique addresses that voted.
+    /// @return timeRemaining Seconds until voting ends (0 if ended).
+    /// @return isActive Whether voting is currently active.
+    function getVotingStatistics() external view returns (
+        uint256 totalVotes,
+        uint256 uniqueVoters,
+        uint256 timeRemaining,
+        bool isActive
+    ) {
+        totalVotes = voterCount;
+        uniqueVoters = voterCount; // Each vote is from a unique voter
+        isActive = isVotingOpen();
+        if (block.timestamp >= endTime) {
+            timeRemaining = 0;
+        } else {
+            timeRemaining = endTime - block.timestamp;
+        }
+    }
+
     /// @notice Get a summary of the poll state for quick status checks.
     /// @return name Poll name.
     /// @return headline Poll headline.
