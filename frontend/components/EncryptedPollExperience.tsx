@@ -118,8 +118,12 @@ export function EncryptedPollExperience() {
       ? "The oracle provided a cleartext tally. Results are immutable."
       : poll.metadata.decryptionPending
         ? "Oracle decryption request in progress. Results will unlock once the callback finalizes."
-        : "Casting an encrypted vote keeps your preference private while contributing to the collective forecast."
-    : "Deploy the EncryptedPredictionPoll contract on this chain to begin.";
+        : poll.isSubmitting
+          ? "Submitting your encrypted vote... Please wait."
+          : "Casting an encrypted vote keeps your preference private while contributing to the collective forecast."
+    : poll.isLoading
+      ? "Loading poll data from the blockchain..."
+      : "Deploy the EncryptedPredictionPoll contract on this chain to begin.";
 
   return (
     <div className="flex flex-col gap-10">
