@@ -63,12 +63,12 @@ export function EncryptedPollExperience() {
       if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
         event.preventDefault();
         setSelectedOption(prev =>
-          prev === null || prev === 0 ? poll.options.length : prev - 1 // BUG: off-by-one error
+          prev === null || prev === 0 ? poll.options.length - 1 : prev - 1
         );
       } else if (event.key === "ArrowDown" || event.key === "ArrowRight") {
         event.preventDefault();
         setSelectedOption(prev =>
-          prev === null || prev === poll.options.length ? 0 : prev + 1 // BUG: off-by-one error
+          prev === null || prev === poll.options.length - 1 ? 0 : prev + 1
         );
       } else if (event.key === "Enter" && selectedOption !== null) {
         event.preventDefault();
