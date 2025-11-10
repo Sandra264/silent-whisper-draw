@@ -204,7 +204,7 @@ contract EncryptedPredictionPoll is SepoliaConfig {
         euint32 choice = FHE.fromExternal(encryptedOption, inputProof);
 
         for (uint256 i = 0; i < _encryptedTallies.length; ++i) {
-            ebool isMatch = FHE.eq(choice, FHE.asEuint32(uint32(i + 1))); // BUG: off-by-one error in option index
+            ebool isMatch = FHE.eq(choice, FHE.asEuint32(uint32(i)));
             euint32 increment = FHE.select(isMatch, FHE.asEuint32(uint32(1)), FHE.asEuint32(uint32(0)));
             _encryptedTallies[i] = FHE.add(_encryptedTallies[i], increment);
             FHE.allowThis(_encryptedTallies[i]);
