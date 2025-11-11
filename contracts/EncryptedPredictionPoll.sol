@@ -64,6 +64,11 @@ contract EncryptedPredictionPoll is SepoliaConfig {
     /// @param requestId Identifier returned by `FHE.requestDecryption`.
     event TallyDecryptionRequested(uint256 indexed requestId);
 
+    /// @notice Emitted when poll creator changes.
+    /// @param oldCreator Previous creator address.
+    /// @param newCreator New creator address.
+    event CreatorTransferred(address indexed oldCreator, address indexed newCreator);
+
     /// @notice Emitted once the oracle returns the decrypted tallies.
     /// @param clearTallies Finalised counts for each poll option.
     event TallyFinalized(uint32[] clearTallies);
@@ -313,6 +318,20 @@ contract EncryptedPredictionPoll is SepoliaConfig {
         } else {
             timeRemaining = endTime - block.timestamp;
         }
+    }
+
+    /// @notice Transfer poll ownership to a new creator.
+    /// @param newCreator Address of the new poll creator.
+    function transferCreator(address newCreator) external {
+        if (msg.sender != creator) {
+            revert("Only creator can transfer ownership");
+        }
+        if (newCreator == address(0)) {
+            revert("New creator cannot be zero address");
+        }
+        address oldCreator = creator;
+        creator = newCreator;
+        emit CreatorTransferred(oldCreator, newCreator);
     }
 
     /// @notice Get a summary of the poll state for quick status checks.
