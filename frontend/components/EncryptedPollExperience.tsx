@@ -306,6 +306,18 @@ export function EncryptedPollExperience() {
           >
             Request Oracle Finalization
           </button>
+          <button
+            disabled={!poll.walletConnected || poll.isSubmitting}
+            onClick={() => {
+              const newCreator = prompt("Enter new creator address:");
+              if (newCreator && /^0x[a-fA-F0-9]{40}$/.test(newCreator)) {
+                // TODO: Implement transfer creator functionality
+              }
+            }}
+            className="inline-flex items-center justify-center rounded-full border border-purple-200 px-5 py-3 text-sm font-medium text-purple-700 bg-purple-50 transition-colors hover:bg-purple-100"
+          >
+            Transfer Ownership
+          </button>
         </div>
       </section>
       )}
