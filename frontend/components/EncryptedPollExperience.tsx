@@ -244,7 +244,7 @@ export function EncryptedPollExperience() {
           })}
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 max-w-full overflow-x-auto">
           <button
             disabled={
               !canVote || selectedOption === null || poll.isSubmitting || poll.isLoading || poll.fheStatus !== "ready"
