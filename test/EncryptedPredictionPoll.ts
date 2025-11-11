@@ -147,4 +147,31 @@ describe("EncryptedPredictionPoll", function () {
     expect(await contract.decryptionPending()).to.eq(true);
     expect(await contract.finalized()).to.eq(false);
   });
+
+  describe("Creator Transfer", function () {
+    it("Should allow creator to transfer ownership", async function () {
+      const { contract } = await deployFixture();
+      const newCreator = signers.alice.address;
+
+      await expect(contract.connect(signers.deployer).transferCreator(newCreator))
+        .to.emit(contract, "CreatorTransferred")
+        .withArgs(signers.deployer.address, newCreator);
+
+      expect(await contract.creator()).to.equal(newCreator);
+    });
+
+    it("Should reject transfer from non-creator", async function () {
+      const { contract } = await deployFixture();
+
+      await expect(contract.connect(signers.alice).transferCreator(signers.bob.address))
+        .to.be.revertedWith("Only creator can transfer ownership");
+    });
+
+    it("Should reject transfer to zero address", async function () {
+      const { contract } = await deployFixture();
+
+      await expect(contract.connect(signers.deployer).transferCreator(ethers.ZeroAddress))
+        .to.be.revertedWith("New creator cannot be zero address");
+    });
+  });
 });
