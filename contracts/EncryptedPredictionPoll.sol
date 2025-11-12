@@ -11,6 +11,11 @@ import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 /// @dev The contract manages a single poll with a fixed set of options. Votes are submitted as encrypted indices
 ///      and tallied homomorphically. After the voting window ends anyone can request oracle decryption and the
 ///      clear tallies become publicly available once the callback succeeds.
+/// @dev Security Considerations:
+///      - Uses FHE for vote privacy and tally aggregation
+///      - Creator has privileged access to encrypted tallies
+///      - Oracle decryption provides final immutable results
+///      - Re-entrancy protection through state checks
 contract EncryptedPredictionPoll is SepoliaConfig {
     /// @notice Metadata describing each option that can be voted for.
     struct Option {
