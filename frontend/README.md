@@ -6,6 +6,14 @@ PollCipher’s frontend is a Next.js 15 application that orchestrates the encryp
 2. Encrypt a prediction choice in the browser and post it on-chain.
 3. Decrypt tallies locally via the FHE SDK or request public results through the oracle.
 
+## Features
+
+- **Privacy-First Voting**: Client-side encryption ensures vote privacy
+- **Real-time Updates**: Live poll status and encrypted tally monitoring
+- **Multi-Network Support**: Deployable across multiple EVM-compatible chains
+- **Accessibility**: Keyboard navigation and screen reader support
+- **Mobile Responsive**: Optimized for all device sizes
+
 ---
 
 ## 1. Setup
