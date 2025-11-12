@@ -57,6 +57,15 @@ const config: HardhatUserConfig = {
       chainId: 11155111,
       url: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
     },
+    zama: {
+      accounts: {
+        mnemonic: MNEMONIC,
+        path: "m/44'/60'/0'/0/",
+        count: 10,
+      },
+      chainId: 8009,
+      url: "https://dev.zama.ai",
+    },
   },
   paths: {
     artifacts: "./artifacts",
