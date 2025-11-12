@@ -55,6 +55,12 @@ export function EncryptedPollExperience() {
   const poll = useEncryptedPredictionPoll();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
 
+  // Memoize expensive computations
+  const resultTallies = useMemo(() =>
+    poll.metadata?.finalized ? poll.finalizedTallies : poll.decryptedTallies,
+    [poll.metadata?.finalized, poll.finalizedTallies, poll.decryptedTallies]
+  );
+
   // Keyboard navigation for option selection
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -109,7 +115,6 @@ export function EncryptedPollExperience() {
     return badges;
   }, [poll.metadata, poll.fheStatus, poll.walletConnected]);
 
-  const resultTallies = poll.metadata?.finalized ? poll.finalizedTallies : poll.decryptedTallies;
 
   const canVote = poll.canVote && selectedOption !== null && selectedOption >= 0 && selectedOption < poll.options.length; // BUG: redundant check that might mask issues
 
