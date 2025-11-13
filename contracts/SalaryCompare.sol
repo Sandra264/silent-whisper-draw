@@ -119,6 +119,7 @@ contract SalaryCompare is SepoliaConfig {
         hasSalary[msg.sender] = true;
 
         FHE.allowThis(encryptedSalary);
+        FHE.allow(encryptedSalary, msg.sender);
 
         emit SalaryUpdated(msg.sender, block.timestamp);
     }
@@ -136,9 +137,14 @@ contract SalaryCompare is SepoliaConfig {
             require(hasSalary[otherUser], "One of the other users has not submitted a salary yet");
             require(msg.sender != otherUser, "Cannot compare with yourself");
 
-            // Skip if comparison already performed or if duplicate address in array
+            // Skip if comparison already performed
             if (comparisonPerformed[msg.sender][otherUser]) {
                 continue;
+            }
+
+            // Check for duplicate addresses in the input array
+            for (uint256 j = 0; j < i; j++) {
+                require(otherUsers[j] != otherUser, "Duplicate addresses not allowed in batch comparison");
             }
 
             // Compare: is msg.sender's salary greater than otherUser's salary?
