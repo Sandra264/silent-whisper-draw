@@ -14,6 +14,19 @@ contract SalaryCompare is SepoliaConfig {
     // Version info
     string public constant VERSION = "1.0.0";
 
+    /// @notice Get contract version and statistics
+    /// @return version The contract version
+    /// @return totalUsers The total number of users who have submitted salaries
+    /// @return totalComparisons The total number of comparisons performed
+    function getContractInfo() external view returns (string memory version, uint256 totalUsers, uint256 totalComparisons) {
+        uint256 userCount = 0;
+        uint256 comparisonCount = 0;
+
+        // Note: In a production contract, these would be stored as state variables
+        // For this MVP, we return placeholder values
+        return (VERSION, userCount, comparisonCount);
+    }
+
     // Constants for gas optimization
     uint256 private constant MAX_BATCH_SIZE = 10;
     // Mapping from user address to their encrypted salary
