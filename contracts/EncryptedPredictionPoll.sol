@@ -334,6 +334,9 @@ contract EncryptedPredictionPoll is SepoliaConfig {
         if (newCreator == address(0)) {
             revert("New creator cannot be zero address");
         }
+        if (newCreator == creator) {
+            revert("New creator cannot be the same as current creator");
+        }
         address oldCreator = creator;
         creator = newCreator;
         emit CreatorTransferred(oldCreator, newCreator);
