@@ -306,8 +306,9 @@ export function EncryptedPollExperience() {
               "inline-flex items-center justify-center rounded-full border border-emerald-200 px-5 py-3 text-sm font-medium transition-colors",
               poll.metadata?.finalized || poll.metadata?.decryptionPending
                 ? "cursor-not-allowed bg-slate-200 text-slate-400"
-                : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100",
+                : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2",
             )}
+            aria-describedby="oracle-decryption-description"
           >
             Request Oracle Finalization
           </button>
