@@ -8,6 +8,10 @@ import { errorNotDeployed } from "./ErrorNotDeployed";
 import { useState, useMemo } from "react";
 import { useAccount } from "wagmi";
 
+function isValidEthereumAddress(address: string): boolean {
+  return /^0x[a-fA-F0-9]{40}$/.test(address);
+}
+
 export const SalaryCompareDemo = () => {
   // Memoize expensive computations
   const buttonClass = useMemo(() => (
@@ -44,8 +48,9 @@ export const SalaryCompareDemo = () => {
 
   const handleSalarySubmit = async () => {
     const salary = parseInt(salaryInput);
-    if (salary > 0 && salaryCompare.canSubmit) {
-      // Bug: No upper limit validation for salary input
+    const MAX_SALARY = 10000000; // $10M reasonable upper limit
+
+    if (salary > 0 && salary <= MAX_SALARY && salaryCompare.canSubmit) {
       try {
         await salaryCompare.submitSalary(salary);
         setSalaryInput("");
@@ -182,9 +187,9 @@ export const SalaryCompareDemo = () => {
               <input
                 type="number"
                 className={`${inputClass} ${
-                  salaryInput && (parseInt(salaryInput) <= 0 || isNaN(parseInt(salaryInput)))
+                  salaryInput && (parseInt(salaryInput) <= 0 || isNaN(parseInt(salaryInput)) || parseInt(salaryInput) > 10000000)
                     ? 'border-red-500 focus:border-red-500 focus:ring-red-200'
-                    : salaryInput && parseInt(salaryInput) > 0
+                    : salaryInput && parseInt(salaryInput) > 0 && parseInt(salaryInput) <= 10000000
                     ? 'border-green-500 focus:border-green-500 focus:ring-green-200'
                     : ''
                 }`}
@@ -198,14 +203,20 @@ export const SalaryCompareDemo = () => {
                 }}
                 disabled={salaryCompare.isSubmitting}
                 min="0"
+                max="10000000"
                 step="1000"
                 aria-label="Salary amount in USD"
-                aria-describedby={salaryInput && parseInt(salaryInput) <= 0 ? "salary-error" : undefined}
+                aria-describedby={salaryInput && (parseInt(salaryInput) <= 0 || parseInt(salaryInput) > 10000000) ? "salary-error" : undefined}
               />
-              {salaryInput && parseInt(salaryInput) <= 0 && (
-                <p id="salary-error" className="text-sm text-red-600 mt-1" role="alert">Please enter a valid salary amount greater than 0</p>
+              {salaryInput && (parseInt(salaryInput) <= 0 || parseInt(salaryInput) > 10000000) && (
+                <p id="salary-error" className="text-sm text-red-600 mt-1" role="alert">
+                  {parseInt(salaryInput) <= 0
+                    ? "Please enter a valid salary amount greater than 0"
+                    : "Salary amount cannot exceed $10,000,000"
+                  }
+                </p>
               )}
-              {salaryInput && parseInt(salaryInput) > 1000000 && (
+              {salaryInput && parseInt(salaryInput) > 1000000 && parseInt(salaryInput) <= 10000000 && (
                 <p className="text-sm text-amber-600 mt-1">High salary detected - ensure accuracy</p>
               )}
             </div>
@@ -277,10 +288,9 @@ export const SalaryCompareDemo = () => {
             )}
             <button
               className={buttonClass}
-              disabled={!salaryCompare.canCompare || !compareAddress}
+              disabled={!salaryCompare.canCompare || !compareAddress || !isValidEthereumAddress(compareAddress)}
               onClick={async () => {
-                if (compareAddress) {
-                  // Bug: No Ethereum address format validation
+                if (compareAddress && isValidEthereumAddress(compareAddress)) {
                   await salaryCompare.compareSalaries(compareAddress);
                 }
               }}
