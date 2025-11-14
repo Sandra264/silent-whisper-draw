@@ -45,6 +45,7 @@ export const SalaryCompareDemo = () => {
 
   const [salaryInput, setSalaryInput] = useState<string>("");
   const [compareAddress, setCompareAddress] = useState<string>("");
+  const [retryCount, setRetryCount] = useState<number>(0);
 
   const handleSalarySubmit = async () => {
     const salary = parseInt(salaryInput);
@@ -54,8 +55,14 @@ export const SalaryCompareDemo = () => {
       try {
         await salaryCompare.submitSalary(salary);
         setSalaryInput("");
+        setRetryCount(0); // Reset retry count on success
       } catch (error) {
         console.error("Failed to submit salary:", error);
+        if (retryCount < 3) {
+          setRetryCount(prev => prev + 1);
+          // Auto-retry after a delay
+          setTimeout(() => handleSalarySubmit(), 2000);
+        }
       }
     }
   };
