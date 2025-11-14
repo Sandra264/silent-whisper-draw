@@ -304,6 +304,37 @@ contract EncryptedPredictionPoll is SepoliaConfig {
         return true;
     }
 
+    /// @notice Get poll metadata in a single call.
+    /// @return name Poll name.
+    /// @return headline Poll headline.
+    /// @return description Poll description.
+    /// @return creator Poll creator address.
+    /// @return startTime Voting start timestamp.
+    /// @return endTime Voting end timestamp.
+    /// @return finalized Whether results are finalized.
+    /// @return voterCount Number of voters.
+    function getPollMetadata() external view returns (
+        string memory name,
+        string memory headline,
+        string memory description,
+        address creator,
+        uint256 startTime,
+        uint256 endTime,
+        bool finalized,
+        uint256 voterCount
+    ) {
+        return (
+            pollName,
+            pollHeadline,
+            pollDescription,
+            creator,
+            startTime,
+            endTime,
+            finalized,
+            voterCount
+        );
+    }
+
     /// @notice Get voting statistics summary.
     /// @return totalVotes Total number of votes cast.
     /// @return uniqueVoters Number of unique addresses that voted.
