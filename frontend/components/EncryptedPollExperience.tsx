@@ -6,14 +6,14 @@ import clsx from "clsx";
 
 import { useEncryptedPredictionPoll } from "@/hooks/useEncryptedPredictionPoll";
 
-function formatTimestamp(value: number | undefined) {
+function formatTimestamp(value: number | undefined): string {
   if (!value) {
     return "—";
   }
   return new Date(value * 1000).toLocaleString();
 }
 
-function timeUntil(endTime: number | undefined) {
+function timeUntil(endTime: number | undefined): string {
   if (!endTime) {
     return "N/A";
   }
