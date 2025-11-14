@@ -17,6 +17,10 @@ import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 ///      - Oracle decryption provides final immutable results
 ///      - Re-entrancy protection through state checks
 contract EncryptedPredictionPoll is SepoliaConfig {
+    /// @dev Constants for gas optimization and readability
+    uint256 private constant MAX_VOTING_DURATION = 365 days;
+    uint256 private constant MIN_VOTING_DURATION = 1 hours;
+    uint256 private constant MAX_OPTIONS = 10;
     /// @notice Metadata describing each option that can be voted for.
     struct Option {
         string label;
@@ -129,13 +133,13 @@ contract EncryptedPredictionPoll is SepoliaConfig {
         string[] memory optionDescriptions,
         uint256 votingDurationSeconds
     ) {
-        if (optionLabels.length < 2) {
+        if (optionLabels.length < 2 || optionLabels.length > MAX_OPTIONS) {
             revert InsufficientOptions();
         }
         if (optionDescriptions.length != optionLabels.length) {
             revert MismatchedOptionMetadata();
         }
-        if (votingDurationSeconds == 0) {
+        if (votingDurationSeconds < MIN_VOTING_DURATION || votingDurationSeconds > MAX_VOTING_DURATION) {
             revert InvalidVotingDuration();
         }
 
