@@ -228,14 +228,14 @@ export const SalaryCompareDemo = () => {
               )}
             </div>
             <button
-              className={`${buttonClass} ${salaryCompare.isSubmitting ? 'animate-pulse' : ''}`}
-              disabled={!salaryCompare.canSubmit || !salaryInput || parseInt(salaryInput) <= 0}
+              className={`${buttonClass} ${salaryCompare.isSubmitting ? 'animate-pulse opacity-75' : ''} transition-all duration-300`}
+              disabled={!salaryCompare.canSubmit || !salaryInput || parseInt(salaryInput) <= 0 || parseInt(salaryInput) > 10000000}
               onClick={handleSalarySubmit}
             >
               {salaryCompare.isSubmitting ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Submitting...
+                  {retryCount > 0 ? `Retrying... (${retryCount}/3)` : "Submitting..."}
                 </div>
               ) : salaryCompare.hasSalary ? (
                 "Update Salary"
