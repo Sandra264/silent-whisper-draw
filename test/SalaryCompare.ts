@@ -356,5 +356,59 @@ describe("SalaryCompare", function () {
       .to.emit(salaryCompareContract, "SalaryUpdated")
       .withArgs(signers.alice.address);
   });
+
+  it("should reject duplicate addresses in batch comparison", async function () {
+    // Submit salaries for all users
+    const aliceSalary = 50000;
+    const bobSalary = 60000;
+    const deployerSalary = 40000;
+
+    // Alice submits salary
+    const encryptedAliceSalary = await fhevm
+      .createEncryptedInput(salaryCompareContractAddress, signers.alice.address)
+      .add32(aliceSalary)
+      .encrypt();
+
+    let tx = await salaryCompareContract
+      .connect(signers.alice)
+      .submitSalary(encryptedAliceSalary.handles[0], encryptedAliceSalary.inputProof);
+    await tx.wait();
+
+    // Bob submits salary
+    const encryptedBobSalary = await fhevm
+      .createEncryptedInput(salaryCompareContractAddress, signers.bob.address)
+      .add32(bobSalary)
+      .encrypt();
+
+    tx = await salaryCompareContract
+      .connect(signers.bob)
+      .submitSalary(encryptedBobSalary.handles[0], encryptedBobSalary.inputProof);
+    await tx.wait();
+
+    // Deployer submits salary
+    const encryptedDeployerSalary = await fhevm
+      .createEncryptedInput(salaryCompareContractAddress, signers.deployer.address)
+      .add32(deployerSalary)
+      .encrypt();
+
+    tx = await salaryCompareContract
+      .connect(signers.deployer)
+      .submitSalary(encryptedDeployerSalary.handles[0], encryptedDeployerSalary.inputProof);
+    await tx.wait();
+
+    // Attempt batch comparison with duplicate addresses should fail
+    await expect(
+      salaryCompareContract
+        .connect(signers.alice)
+        .batchCompareSalaries([signers.bob.address, signers.deployer.address, signers.bob.address])
+    ).to.be.revertedWith("Duplicate addresses not allowed in batch comparison");
+  });
+
+  it("should return contract information correctly", async function () {
+    const contractInfo = await salaryCompareContract.getContractInfo();
+    expect(contractInfo.version).to.equal("1.0.0");
+    expect(contractInfo.totalUsers).to.equal(0); // Placeholder value
+    expect(contractInfo.totalComparisons).to.equal(0); // Placeholder value
+  });
 });
 
