@@ -4,7 +4,7 @@ A privacy-preserving salary comparison application built with Fully Homomorphic 
 
 ## 🌐 Live Demo & Resources
 
-- **🔗 Live Application**: [https://selfprivate.vercel.app/](https://selfprivate.vercel.app/)
+- **🔗 Live Application**: [https://silent-whisper.vercel.app/](https://silent-whisper.vercel.app/)
 - **📹 Demo Video**: [Download demo video](private.mp4)
 - **📄 Sepolia Contract**: `0x76bD869D7F8Dd7DBbAcF219a3F5c17C25f9d7089`
 - **📊 Sepolia Testnet**: View contract on [Sepolia Etherscan](https://sepolia.etherscan.io/address/0x76bD869D7F8Dd7DBbAcF219a3F5c17C25f9d7089)

@@ -25,7 +25,7 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/salary-icon.png" />
       </head>
-      <body className={`bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen text-foreground antialiased`}>
+      <body className={`bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 min-h-screen text-foreground antialiased`}>
         <main className="flex flex-col max-w-7xl mx-auto pb-20 px-4">
           <Providers>
             <Header />

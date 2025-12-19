@@ -157,25 +157,55 @@ export const useSalaryCompare = (parameters: {
     );
 
     try {
+      // First check if user has salary from contract state
       const has = await contract.hasSalary(ethersSigner.address);
-      setHasSalary(has);
-
+      
       if (!has) {
         setMySalary(undefined);
-        setMessage("You have not submitted a salary yet. Please submit your encrypted salary first.");
+        setHasSalary(false);
+        // Only show message if not currently submitting
+        if (!isSubmittingRef.current) {
+          setMessage("You have not submitted a salary yet. Please submit your encrypted salary first.");
+        }
         return;
       }
 
-      const value: string = await contract.getMySalary();
+      // Contract confirms user has salary, update state
+      setHasSalary(true);
+
+      // Now try to get the encrypted salary handle
+      // Use ethersSigner for getMySalary since it requires msg.sender context
+      const signerContract = new ethers.Contract(
+        salaryCompare.address,
+        salaryCompare.abi,
+        ethersSigner
+      );
+      
+      const value: string = await signerContract.getMySalary();
       setMySalary(value);
+      if (!isSubmittingRef.current) {
+        setMessage(""); // Clear any previous error messages
+      }
     } catch (e) {
       const err = e as Error;
+      
+      // Check for the specific "not submitted" error
       if (err.message?.includes("You have not submitted a salary yet")) {
-        setMessage("You have not submitted a salary yet. Please submit your encrypted salary first.");
+        // This can happen if hasSalary check passed but getMySalary failed
+        // This indicates a state inconsistency, possibly during FHEVM processing
         setMySalary(undefined);
+        // Don't reset hasSalary to false here - let the next check determine the true state
+        if (!isSubmittingRef.current) {
+          setMessage("Salary data is being processed. Please wait a moment and try again.");
+        }
         return;
       }
-      setMessage("Unable to retrieve your salary. Please try again after submitting.");
+      
+      // For other errors, log and show message
+      console.error("Error refreshing salary:", err);
+      if (!isSubmittingRef.current) {
+        setMessage(`Unable to retrieve your salary: ${err.message}`);
+      }
     }
   }, [salaryCompare.address, salaryCompare.abi, ethersReadonlyProvider, ethersSigner]);
 
@@ -236,14 +266,71 @@ export const useSalaryCompare = (parameters: {
 
           const receipt = await tx.wait();
 
-          setMessage(`Salary submitted successfully! Status: ${receipt?.status}`);
-
           if (isStale()) {
             return;
           }
 
-          setHasSalary(true);
-          refreshMySalary();
+          if (receipt?.status === 1) {
+            setMessage(`Salary submitted successfully! Transaction: ${tx.hash}`);
+
+            // Wait for FHEVM processing to complete (encrypted data needs time to be processed)
+            // Use a longer delay and retry mechanism
+            setMessage(`Waiting for FHEVM to process encrypted data...`);
+            
+            let retries = 0;
+            const maxRetries = 5;
+            const retryDelay = 2000; // 2 seconds between retries
+            
+            while (retries < maxRetries) {
+              await new Promise(resolve => setTimeout(resolve, retryDelay));
+              
+              if (isStale()) {
+                return;
+              }
+              
+              try {
+                // Check contract state directly
+                const readonlyContract = new ethers.Contract(
+                  thisContractAddress,
+                  salaryCompare.abi,
+                  ethersReadonlyProvider
+                );
+                
+                const hasSubmitted = await readonlyContract.hasSalary(thisEthersSigner.address);
+                
+                if (hasSubmitted) {
+                  setHasSalary(true);
+                  // Try to get the salary handle
+                  const signerContract = new ethers.Contract(
+                    thisContractAddress,
+                    salaryCompare.abi,
+                    thisEthersSigner
+                  );
+                  const salaryHandle = await signerContract.getMySalary();
+                  setMySalary(salaryHandle);
+                  setMessage(`Salary submitted and verified successfully!`);
+                  break;
+                }
+              } catch (verifyError) {
+                // Ignore errors during verification, just retry
+                console.log(`Verification attempt ${retries + 1} failed, retrying...`);
+              }
+              
+              retries++;
+              if (retries < maxRetries) {
+                setMessage(`Verifying submission... (attempt ${retries + 1}/${maxRetries})`);
+              }
+            }
+            
+            if (retries >= maxRetries) {
+              // Even if verification failed, the transaction succeeded
+              // Set hasSalary to true and let user manually refresh
+              setHasSalary(true);
+              setMessage(`Transaction confirmed! Your salary may take a moment to appear. Try refreshing.`);
+            }
+          } else {
+            setMessage(`Salary submission failed. Transaction status: ${receipt?.status}`);
+          }
         } catch (e) {
           setMessage(`Failed to submit salary: ${(e as Error).message}`);
         } finally {
